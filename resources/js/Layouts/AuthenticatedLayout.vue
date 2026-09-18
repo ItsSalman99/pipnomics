@@ -45,9 +45,8 @@ function toggleTheme() {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="flex shrink-0 items-center">
-                                <Link :href="route('home')" class="flex items-center space-x-2">
-                                    <div class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center font-bold text-slate-900">P</div>
-                                    <span class="text-xl font-bold tracking-tight text-white">Pipfolio</span>
+                                <Link :href="route('home')" class="flex items-center">
+                                    <img src="/assets/logo.png" alt="Pipnomics" class="h-9 w-auto object-contain rounded" />
                                 </Link>
                             </div>
 

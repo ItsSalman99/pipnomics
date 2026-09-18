@@ -3,12 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use App\Models\Group;
 use App\Models\NewsArticle;
 use App\Models\NewsComment;
 use App\Services\NewsService;
-
 use App\Models\User;
 
 class DashboardController extends Controller
@@ -20,7 +18,7 @@ class DashboardController extends Controller
         $this->newsService = $newsService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         // Auto-expire stale online users inactive for more than 15 minutes
         User::where('is_online', true)
@@ -32,6 +30,14 @@ class DashboardController extends Controller
             ->select('id', 'name', 'email', 'is_premium', 'is_online', 'last_seen_at')
             ->orderByDesc('last_seen_at')
             ->get();
+
+        // If AJAX telemetry request
+        if ($request->ajax() || $request->wantsJson() || $request->has('telemetry')) {
+            return response()->json([
+                'onlineTraders' => $onlineTraders,
+                'onlineTradersCount' => $onlineTraders->count(),
+            ]);
+        }
 
         // Top 10 community forums by maximum members or posts
         $groups = Group::withCount(['members', 'posts'])
@@ -65,7 +71,7 @@ class DashboardController extends Controller
                 ];
             });
 
-        return Inertia::render('Dashboard', [
+        return view('dashboard', [
             'groups' => $groups,
             'newsItems' => $news,
             'analysisItems' => $analysis,
@@ -77,3 +83,4 @@ class DashboardController extends Controller
         ]);
     }
 }
+

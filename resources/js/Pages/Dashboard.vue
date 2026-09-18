@@ -224,86 +224,6 @@ function openArticleByTitle(title) {
                         </div>
                     </div>
 
-                    <!-- Page Workspace Layout Customization -->
-                    <div class="bg-slate-900 border border-slate-800/80 rounded-xl p-5 shadow-lg">
-                        <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase mb-4">Workspace Customizer</h3>
-                        <div class="space-y-3">
-                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800/80 flex items-center justify-between">
-                                <div class="text-xs">
-                                    <span class="block font-semibold text-slate-200">Terminal Sounds</span>
-                                    <span class="text-[10px] text-slate-500">Audio alerts on calendar data</span>
-                                </div>
-                                <button class="w-8 h-4 rounded-full bg-slate-800 relative transition-colors duration-200">
-                                    <span class="absolute top-0.5 left-0.5 w-3 h-3 bg-slate-400 rounded-full transition-transform duration-200"></span>
-                                </button>
-                            </div>
-                            <div class="p-3 bg-slate-950 rounded-lg border border-slate-800/80 flex items-center justify-between">
-                                <div class="text-xs">
-                                    <span class="block font-semibold text-slate-200">Session Clocks</span>
-                                    <span class="text-[10px] text-slate-500">Auto highlight active zones</span>
-                                </div>
-                                <button class="w-8 h-4 rounded-full bg-emerald-500/20 relative transition-colors duration-200">
-                                    <span class="absolute top-0.5 right-0.5 w-3 h-3 bg-emerald-400 rounded-full transition-transform duration-200"></span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- PRO TRADING GROUPS CALLOUT (Interactive toggle of database is_premium) -->
-                    <div class="bg-slate-900 border border-slate-800/80 rounded-xl p-5 shadow-lg relative overflow-hidden group">
-                        <div class="absolute -top-10 -right-10 w-28 h-28 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition-all duration-300"></div>
-                        
-                        <div v-if="$page.props.auth.user">
-                            <div class="flex items-center justify-between mb-3">
-                                <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase">Pipfolio Membership</h3>
-                                <span 
-                                    class="text-[10px] font-bold px-2 py-0.5 rounded-full border" 
-                                    :class="$page.props.auth.user.is_premium 
-                                        ? 'bg-amber-500/10 text-amber-400 border-amber-500/30 shadow-md shadow-amber-500/5' 
-                                        : 'bg-slate-800 text-slate-400 border-slate-700'"
-                                >
-                                    {{ $page.props.auth.user.is_premium ? 'PRO MEMBER' : 'FREE ACCOUNT' }}
-                                </span>
-                            </div>
-                            
-                            <p class="text-xs text-slate-355 leading-relaxed mb-4">
-                                Premium users can form custom groups, post private signals, and access automated macroeconomic trade forecasts.
-                            </p>
-
-                            <!-- Upgrade/Downgrade Button -->
-                            <button 
-                                @click="togglePremium"
-                                class="w-full py-2.5 px-4 rounded-lg font-bold text-xs transition duration-300 flex items-center justify-center space-x-2 border shadow-lg shadow-black/20"
-                                :class="$page.props.auth.user.is_premium 
-                                    ? 'bg-slate-800 hover:bg-slate-750 text-slate-300 border-slate-700 hover:text-white' 
-                                    : 'bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 border-emerald-400 hover:scale-[1.02]'"
-                            >
-                                <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                <span>{{ $page.props.auth.user.is_premium ? 'Cancel Premium Status' : 'Activate Premium Membership' }}</span>
-                            </button>
-                        </div>
-                        <div v-else>
-                            <div class="flex items-center justify-between mb-3">
-                                <h3 class="text-xs font-bold text-slate-400 tracking-wider uppercase">Pipfolio Pro</h3>
-                                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full border bg-slate-800 text-slate-400 border-slate-700">
-                                    GUEST VIEW
-                                </span>
-                            </div>
-                            
-                            <p class="text-xs text-slate-355 leading-relaxed mb-4">
-                                Premium users can form custom groups, post private signals, and access automated macroeconomic trade forecasts.
-                            </p>
-
-                            <!-- Register to Join Button -->
-                            <Link 
-                                :href="route('register')"
-                                class="w-full py-2.5 px-4 rounded-lg font-bold text-xs bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 border border-emerald-400 shadow-lg shadow-black/20 text-center block transition hover:scale-[1.02]"
-                            >
-                                Register to Join Pro Groups
-                            </Link>
-                        </div>
-                    </div>
-
                 </div>
 
                 <!-- RIGHT COLUMN: MAIN WORKSPACE widgets (9 Cols) -->
@@ -412,7 +332,7 @@ function openArticleByTitle(title) {
                             <h4 class="text-sm font-bold text-white mb-1">No Active Community Forums Yet</h4>
                             <p class="text-xs text-slate-500 max-w-md mx-auto mb-3">Be the first to start a trading forum and share ideas with the community.</p>
                             <Link 
-                                v-if="$page.props.auth.user && $page.props.auth.user.is_premium"
+                                v-if="$page.props.auth.user"
                                 :href="route('groups.create')" 
                                 class="inline-flex items-center space-x-1.5 bg-gradient-to-r from-emerald-500 to-cyan-500 text-slate-950 px-3.5 py-1.5 rounded-lg text-xs font-bold hover:from-emerald-400 hover:to-cyan-400 transition"
                             >

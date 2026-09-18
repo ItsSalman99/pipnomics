@@ -18,7 +18,7 @@ defineProps({ groups: Array });
           <p class="text-xs text-slate-400 mt-1">Discuss setups, post news analysis, and collaborate with other traders worldwide.</p>
         </div>
         <Link 
-          v-if="$page.props.auth.user && $page.props.auth.user.is_premium" 
+          v-if="$page.props.auth.user" 
           :href="route('groups.create')" 
           class="bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 px-4 py-2 rounded-lg font-bold text-xs transition duration-200 border border-emerald-400 shadow-md shadow-emerald-500/5 hover:scale-[1.02]"
         >

@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
-use Inertia\Inertia;
 
 class CalendarController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         // Fetch economic calendar from faireconomy CDN and cache for 2 hours (7200 seconds)
         $events = Cache::remember('economic_calendar_events_v2', 7200, function () {
@@ -57,7 +56,12 @@ class CalendarController extends Controller
             ];
         }
 
-        return Inertia::render('Calendar/Index', ['events' => $events]);
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['events' => $events]);
+        }
+
+        return view('calendar.index', ['events' => $events]);
     }
 }
+
 

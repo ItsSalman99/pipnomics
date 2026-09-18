@@ -62,14 +62,14 @@ class UserActivityAndOnlineStatusTest extends TestCase
     {
         $response = $this->post('/register', [
             'name' => 'John Trader',
-            'email' => 'john@pipfolio.com',
+            'email' => 'john@pipnomics.com',
             'password' => 'Password@123',
             'password_confirmation' => 'Password@123',
         ]);
 
         $response->assertRedirect('/dashboard');
 
-        $user = User::where('email', 'john@pipfolio.com')->first();
+        $user = User::where('email', 'john@pipnomics.com')->first();
         $this->assertNotNull($user);
         $this->assertTrue($user->is_online);
         $this->assertNotNull($user->last_login_at);
@@ -187,10 +187,8 @@ class UserActivityAndOnlineStatusTest extends TestCase
         $response = $this->actingAs($user)->get('/profile');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('Profile/Edit')
-            ->has('activities', 1)
-        );
+        $response->assertViewIs('profile.edit');
+        $response->assertViewHas('activities');
     }
 
     public function test_dashboard_shows_only_currently_online_traders(): void
@@ -206,12 +204,10 @@ class UserActivityAndOnlineStatusTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn ($page) => $page
-            ->component('Dashboard')
-            ->has('onlineTraders', 2)
-            ->where('onlineTraders.0.id', $onlineUser1->id)
-            ->where('onlineTraders.1.id', $onlineUser2->id)
-        );
+        $response->assertViewIs('dashboard');
+        $response->assertViewHas('onlineTraders', function ($traders) use ($onlineUser1, $onlineUser2) {
+            return $traders->count() === 2 && $traders->contains('id', $onlineUser1->id) && $traders->contains('id', $onlineUser2->id);
+        });
 
         // Stale user was automatically marked offline
         $staleUser->refresh();

@@ -8,7 +8,7 @@ defineProps({
 </script>
 
 <template>
-    <Head title="Pipfolio - Financial Market Hub" />
+    <Head title="Pipnomics - Financial Market Hub" />
     <div class="min-h-screen bg-slate-900 text-slate-100 font-sans selection:bg-emerald-500 selection:text-white">
         <!-- Ticker Tape -->
         <div class="w-full bg-slate-950 border-b border-slate-800 overflow-hidden py-2">
@@ -24,9 +24,8 @@ defineProps({
 
         <!-- Navbar -->
         <nav class="w-full px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
-            <div class="flex items-center space-x-2">
-                <div class="w-8 h-8 bg-emerald-500 rounded flex items-center justify-center font-bold text-slate-900">P</div>
-                <span class="text-xl font-bold tracking-tight text-white">Pipfolio</span>
+            <div class="flex items-center">
+                <img src="/assets/logo.png" alt="Pipnomics" class="h-9 w-auto object-contain rounded" />
             </div>
             <div v-if="canLogin" class="space-x-4 font-semibold text-sm">
                 <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-slate-300 hover:text-white">Dashboard</Link>
@@ -83,7 +82,7 @@ defineProps({
 
         <!-- Footer -->
         <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
-            &copy; 2026 Pipfolio. All rights reserved. Data provided for informational purposes.
+            &copy; 2026 Pipnomics. All rights reserved. Data provided for informational purposes.
         </footer>
     </div>
 </template>

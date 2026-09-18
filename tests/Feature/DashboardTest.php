@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Group;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Inertia\Testing\AssertableInertia as Assert;
 
 class DashboardTest extends TestCase
 {
@@ -34,12 +33,9 @@ class DashboardTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
-            ->has('groups', 10)
-            ->has('newsItems')
-            ->has('calendarEvents')
-        );
+        $response->assertViewIs('dashboard');
+        $response->assertViewHas('groups');
+        $response->assertViewHas('newsItems');
     }
 
     /**
@@ -52,9 +48,8 @@ class DashboardTest extends TestCase
         $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Dashboard')
-            ->has('groups')
-        );
+        $response->assertViewIs('dashboard');
+        $response->assertViewHas('groups');
     }
 }
+

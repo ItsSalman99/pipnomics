@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Group;
-use Inertia\Inertia;
 
 class GroupController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $groups = Group::withCount('members')->latest()->get();
-        return Inertia::render('Groups/Index', ['groups' => $groups]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['groups' => $groups]);
+        }
+
+        return view('groups.index', ['groups' => $groups]);
     }
 
     public function create()
     {
-        return Inertia::render('Groups/Create');
+        return view('groups.create');
     }
 
     public function store(Request $request)
@@ -39,15 +43,31 @@ class GroupController extends Controller
             $request
         );
 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'redirect' => route('groups.show', $group),
+                'message' => 'Group created successfully.',
+                'group' => $group
+            ]);
+        }
+
         return redirect()->route('groups.show', $group)->with('success', 'Group created successfully.');
     }
 
-    public function show(Group $group)
+    public function show(Group $group, Request $request)
     {
         $group->load(['owner', 'members', 'posts.user']);
         $isMember = $group->members->contains(auth()->id());
         
-        return Inertia::render('Groups/Show', [
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'group' => $group,
+                'isMember' => $isMember
+            ]);
+        }
+
+        return view('groups.show', [
             'group' => $group,
             'isMember' => $isMember
         ]);
@@ -61,6 +81,9 @@ class GroupController extends Controller
         ]);
 
         if (!$group->members->contains($request->user()->id)) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['error' => 'You must be a member of this group to post.'], 403);
+            }
             return back()->withErrors(['message' => 'You must be a member of this group to post.']);
         }
 
@@ -78,10 +101,29 @@ class GroupController extends Controller
             $request
         );
 
+        if ($request->ajax() || $request->wantsJson()) {
+            $post->load('user');
+            return response()->json([
+                'success' => true,
+                'message' => 'Post published successfully.',
+                'post' => [
+                    'id' => $post->id,
+                    'title' => $post->title,
+                    'content' => $post->content,
+                    'created_at' => $post->created_at->toIso8601String(),
+                    'user' => [
+                        'id' => $post->user->id,
+                        'name' => $post->user->name,
+                        'is_online' => $post->user->is_online,
+                    ]
+                ]
+            ]);
+        }
+
         return back()->with('success', 'Post published successfully.');
     }
 
-    public function join(Group $group)
+    public function join(Group $group, Request $request)
     {
         if (!$group->members->contains(auth()->id())) {
             $group->members()->attach(auth()->id());
@@ -92,10 +134,20 @@ class GroupController extends Controller
                 ['group_id' => $group->id, 'group_name' => $group->name]
             );
         }
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'isMember' => true,
+                'members_count' => $group->members()->count(),
+                'message' => 'You have joined the group.'
+            ]);
+        }
+
         return back()->with('success', 'You have joined the group.');
     }
 
-    public function leave(Group $group)
+    public function leave(Group $group, Request $request)
     {
         $group->members()->detach(auth()->id());
         \App\Models\UserActivity::log(
@@ -104,6 +156,17 @@ class GroupController extends Controller
             "Left community group: \"{$group->name}\"",
             ['group_id' => $group->id, 'group_name' => $group->name]
         );
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'isMember' => false,
+                'members_count' => $group->members()->count(),
+                'message' => 'You have left the group.'
+            ]);
+        }
+
         return back()->with('success', 'You have left the group.');
     }
 }
+

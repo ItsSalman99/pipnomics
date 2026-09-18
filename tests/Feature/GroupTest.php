@@ -20,10 +20,8 @@ class GroupTest extends TestCase
         $response = $this->get('/groups');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Groups/Index')
-            ->has('groups')
-        );
+        $response->assertViewIs('groups.index');
+        $response->assertViewHas('groups');
     }
 
     /**
@@ -41,11 +39,9 @@ class GroupTest extends TestCase
         $response = $this->get("/groups/{$group->id}");
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Groups/Show')
-            ->has('group')
-            ->where('isMember', false)
-        );
+        $response->assertViewIs('groups.show');
+        $response->assertViewHas('group');
+        $response->assertViewHas('isMember', false);
     }
 
     /**
@@ -113,27 +109,27 @@ class GroupTest extends TestCase
     }
 
     /**
-     * Test that non-premium users cannot access create group page.
+     * Test that authenticated users can access create group page.
      */
-    public function test_non_premium_users_cannot_access_create_group(): void
+    public function test_authenticated_users_can_access_create_group(): void
     {
         $user = User::factory()->create(['is_premium' => false]);
         $response = $this->actingAs($user)->get('/groups/create');
-        $response->assertStatus(403);
+        $response->assertStatus(200);
     }
 
     /**
-     * Test that premium users can create a group.
+     * Test that authenticated users can create a group.
      */
-    public function test_premium_users_can_create_group(): void
+    public function test_authenticated_users_can_create_group(): void
     {
-        $user = User::factory()->create(['is_premium' => true]);
+        $user = User::factory()->create(['is_premium' => false]);
         $response = $this->actingAs($user)->post('/groups', [
-            'name' => 'Premium Group',
-            'description' => 'Elite discussions'
+            'name' => 'Trading Group',
+            'description' => 'Discussions for everyone'
         ]);
 
-        $group = Group::where('name', 'Premium Group')->first();
+        $group = Group::where('name', 'Trading Group')->first();
         $this->assertNotNull($group);
         $this->assertEquals($user->id, $group->owner_id);
         $response->assertRedirect(route('groups.show', $group));

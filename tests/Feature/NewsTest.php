@@ -30,10 +30,8 @@ class NewsTest extends TestCase
         $response = $this->get('/news');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('News/Index')
-            ->has('news')
-        );
+        $response->assertViewIs('news.index');
+        $response->assertViewHas('news');
     }
 
     /**
@@ -46,10 +44,8 @@ class NewsTest extends TestCase
         $response = $this->actingAs($user)->get('/news');
 
         $response->assertStatus(200);
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('News/Index')
-            ->has('news')
-        );
+        $response->assertViewIs('news.index');
+        $response->assertViewHas('news');
     }
 
     /**

@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Inertia\Testing\AssertableInertia as Assert;
 
 class CalendarTest extends TestCase
 {
@@ -19,11 +18,8 @@ class CalendarTest extends TestCase
         $response = $this->get('/calendar');
 
         $response->assertStatus(200);
-
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Calendar/Index')
-            ->has('events')
-        );
+        $response->assertViewIs('calendar.index');
+        $response->assertViewHas('events');
     }
 
     /**
@@ -37,10 +33,8 @@ class CalendarTest extends TestCase
             ->get('/calendar');
 
         $response->assertStatus(200);
-        
-        $response->assertInertia(fn (Assert $page) => $page
-            ->component('Calendar/Index')
-            ->has('events')
-        );
+        $response->assertViewIs('calendar.index');
+        $response->assertViewHas('events');
     }
 }
+
