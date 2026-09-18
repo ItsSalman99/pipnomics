@@ -1,0 +1,224 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   Pipfolio Premium Light Theme System
+   ========================================================================== */
+.theme-light {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --border-color: #e2e8f0;
+    --border-color-subtle: #f1f5f9;
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --bg-subtle: #f8fafc;
+    --bg-nested-card: #f1f5f9;
+    --bg-hover: #e2e8f0;
+}
+
+/* Base Body and outer layout containers */
+.theme-light,
+.theme-light body,
+.theme-light .min-h-screen {
+    background-color: var(--bg-main) !important;
+    color: var(--text-secondary) !important;
+}
+
+/* Nav, Headers, Primary Cards, Sidebar Panels */
+.theme-light nav,
+.theme-light header,
+.theme-light .bg-slate-900,
+.theme-light .bg-slate-900\/90,
+.theme-light .bg-slate-900\/80,
+.theme-light .bg-slate-900\/50 {
+    background-color: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Micro blocks, Sub-cards, Nested list items, and Table headers */
+.theme-light .bg-slate-950,
+.theme-light .bg-slate-950\/90,
+.theme-light .bg-slate-950\/80,
+.theme-light .bg-slate-950\/70,
+.theme-light .bg-slate-950\/60,
+.theme-light .bg-slate-950\/50,
+.theme-light .bg-slate-950\/40,
+.theme-light .bg-slate-950\/30,
+.theme-light .bg-slate-950\/20,
+.theme-light .bg-slate-950\/10,
+.theme-light .bg-slate-850,
+.theme-light .bg-slate-850\/80,
+.theme-light .bg-slate-850\/60 {
+    background-color: var(--bg-nested-card) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Borders and Dividers */
+.theme-light .border-slate-950,
+.theme-light .border-slate-900,
+.theme-light .border-slate-850,
+.theme-light .border-slate-850\/80,
+.theme-light .border-slate-850\/60,
+.theme-light .border-slate-800,
+.theme-light .border-slate-800\/90,
+.theme-light .border-slate-800\/80,
+.theme-light .border-slate-800\/60,
+.theme-light .border-slate-800\/50,
+.theme-light .border-slate-750,
+.theme-light .border-slate-700,
+.theme-light .border-slate-700\/80,
+.theme-light .border-slate-700\/60,
+.theme-light .border-slate-600 {
+    border-color: var(--border-color) !important;
+}
+
+.theme-light .divide-slate-850 > :not([hidden]) ~ :not([hidden]),
+.theme-light .divide-slate-850\/60 > :not([hidden]) ~ :not([hidden]),
+.theme-light .divide-slate-800 > :not([hidden]) ~ :not([hidden]),
+.theme-light .divide-slate-900 > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--border-color) !important;
+}
+
+/* Typography Overrides */
+.theme-light .text-white,
+.theme-light .text-slate-100,
+.theme-light .text-slate-200 {
+    color: var(--text-primary) !important;
+}
+
+.theme-light .text-slate-300,
+.theme-light .text-slate-350,
+.theme-light .text-slate-355,
+.theme-light .text-slate-400,
+.theme-light .text-slate-450 {
+    color: var(--text-secondary) !important;
+}
+
+.theme-light .text-slate-500,
+.theme-light .text-slate-550,
+.theme-light .text-slate-600,
+.theme-light .text-slate-650,
+.theme-light .text-slate-700,
+.theme-light .text-slate-705 {
+    color: var(--text-muted) !important;
+}
+
+/* Interactive Hover States */
+.theme-light .hover\:bg-slate-950:hover,
+.theme-light .hover\:bg-slate-950\/10:hover,
+.theme-light .hover\:bg-slate-950\/40:hover,
+.theme-light .hover\:bg-slate-900:hover,
+.theme-light .hover\:bg-slate-900\/50:hover,
+.theme-light .hover\:bg-slate-850:hover,
+.theme-light .hover\:bg-slate-800:hover,
+.theme-light .hover\:bg-slate-750:hover,
+.theme-light .hover\:bg-slate-700:hover {
+    background-color: var(--bg-hover) !important;
+}
+
+.theme-light .hover\:text-white:hover,
+.theme-light .hover\:text-slate-100:hover,
+.theme-light .hover\:text-slate-200:hover {
+    color: var(--text-primary) !important;
+}
+
+/* Buttons and Badges */
+.theme-light .bg-slate-800 {
+    background-color: #e2e8f0 !important;
+    color: var(--text-primary) !important;
+}
+
+.theme-light .bg-slate-800\/60 {
+    background-color: #f1f5f9 !important;
+    color: var(--text-secondary) !important;
+}
+
+.theme-light .bg-slate-800:hover {
+    background-color: #cbd5e1 !important;
+}
+
+/* Form Controls (Inputs, Selects, Placeholders) */
+.theme-light input, 
+.theme-light select,
+.theme-light textarea {
+    background-color: #ffffff !important;
+    border-color: #cbd5e1 !important;
+    color: #0f172a !important;
+}
+
+.theme-light input::placeholder,
+.theme-light textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* Highlight & Accent Colors for High Contrast in Light Mode */
+.theme-light .text-emerald-400 {
+    color: #059669 !important;
+}
+
+.theme-light .bg-emerald-500\/10,
+.theme-light .bg-emerald-500\/20,
+.theme-light .bg-emerald-950\/20 {
+    background-color: rgba(16, 185, 129, 0.12) !important;
+}
+
+.theme-light .text-cyan-400 {
+    color: #0891b2 !important;
+}
+
+.theme-light .bg-cyan-500\/10,
+.theme-light .bg-cyan-500\/20 {
+    background-color: rgba(6, 182, 212, 0.12) !important;
+}
+
+.theme-light .text-amber-400 {
+    color: #b45309 !important;
+}
+
+.theme-light .bg-amber-500\/10,
+.theme-light .bg-amber-500\/20 {
+    background-color: rgba(245, 158, 11, 0.12) !important;
+}
+
+.theme-light .text-rose-400 {
+    color: #e11d48 !important;
+}
+
+.theme-light .bg-rose-500\/10,
+.theme-light .bg-rose-500\/20 {
+    background-color: rgba(244, 63, 94, 0.12) !important;
+}
+
+/* Custom Scrollbars */
+.theme-light .scrollbar-thin {
+    scrollbar-color: #cbd5e1 transparent !important;
+}
+
+.theme-light .scrollbar-thumb-slate-800 {
+    background-color: #cbd5e1 !important;
+}
+
+/* Modals, Overlays, and Dialogs */
+.theme-light .fixed.bg-slate-950\/80,
+.theme-light .fixed.bg-slate-950\/90,
+.theme-light .fixed .bg-slate-950\/80,
+.theme-light .fixed .bg-slate-950\/90,
+.theme-light .bg-black\/70 {
+    background-color: rgba(15, 23, 42, 0.45) !important;
+}
+
+.theme-light .fixed .bg-slate-900,
+.theme-light .fixed .bg-slate-900\/90 {
+    background-color: #ffffff !important;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+}
+
+/* Shadows in Light Mode */
+.theme-light .shadow-black\/20,
+.theme-light .shadow-black\/10,
+.theme-light .shadow-lg,
+.theme-light .shadow-2xl {
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08) !important;
+}
