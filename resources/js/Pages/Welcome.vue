@@ -25,7 +25,7 @@ defineProps({
         <!-- Navbar -->
         <nav class="w-full px-6 py-4 flex justify-between items-center max-w-7xl mx-auto">
             <div class="flex items-center">
-                <img src="/assets/logo.png" alt="Pipnomics" class="h-9 w-auto object-contain rounded" />
+                <img src="/storage/logo.png" alt="Pipnomics" class="h-9 w-auto object-contain rounded" />
             </div>
             <div v-if="canLogin" class="space-x-4 font-semibold text-sm">
                 <Link v-if="$page.props.auth.user" :href="route('dashboard')" class="text-slate-300 hover:text-white">Dashboard</Link>

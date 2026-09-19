@@ -21,7 +21,7 @@
 
         <div class="mb-6 z-10 flex justify-center">
             <a href="/" class="flex items-center group">
-                <img src="{{ asset('assets/logo.png') }}" alt="Pipnomics" class="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
+                <img src="{{ asset('storage/logo.png') }}" alt="Pipnomics" class="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
             </a>
         </div>
 
