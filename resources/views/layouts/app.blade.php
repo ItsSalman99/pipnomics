@@ -24,7 +24,7 @@
                         <!-- Logo -->
                         <div class="flex shrink-0 items-center">
                             <a href="{{ route('home') }}" class="flex items-center group">
-                                <img src="{{ asset('assets/logo.png') }}" alt="Pipnomics" class="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
+                                <img src="{{ asset('assets/images/logo.png') }}" alt="Pipnomics" class="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
                             </a>
                         </div>
 
@@ -178,7 +178,7 @@
                     <!-- Brand Column -->
                     <div class="space-y-3 md:col-span-1">
                         <a href="{{ route('home') }}" class="inline-block group">
-                            <img src="{{ asset('assets/logo.png') }}" alt="Pipnomics" class="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="Pipnomics" class="h-9 w-auto object-contain group-hover:scale-105 transition-transform" />
                         </a>
                         <p class="text-xs text-slate-400 leading-relaxed">
                             Real-time macroeconomic intelligence, global session telemetry, and interactive trader community forums.

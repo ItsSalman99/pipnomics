@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="theme-light">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,14 +15,20 @@
     <!-- Scripts & Styles -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans text-slate-100 antialiased bg-slate-950 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
-    <div class="flex min-h-screen flex-col items-center justify-center pt-6 sm:pt-0 bg-slate-950 px-4 py-8 relative overflow-hidden">
+
+<body
+    class="font-sans text-slate-100 antialiased bg-slate-950 min-h-screen selection:bg-emerald-500 selection:text-slate-950">
+    <div
+        class="flex min-h-screen flex-col items-center justify-center pt-6 sm:pt-0 bg-slate-950 px-4 py-8 relative overflow-hidden">
         <!-- Subtle Ambient Glow -->
-        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div
+            class="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none">
+        </div>
 
         <div class="mb-6 z-10 flex justify-center">
             <a href="/" class="flex items-center group">
-                <img src="{{ asset('assets/logo.png') }}" alt="Pipnomics" class="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
+                <img src="{{ asset('assets/images/logo.png') }}" alt="Pipnomics"
+                    class="h-12 w-auto object-contain group-hover:scale-105 transition-transform" />
             </a>
         </div>
 
@@ -30,9 +37,11 @@
         </div>
 
         <!-- Global Toast Container -->
-        <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2.5 max-w-sm pointer-events-none"></div>
+        <div id="toast-container"
+            class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2.5 max-w-sm pointer-events-none"></div>
     </div>
 
     @stack('scripts')
 </body>
+
 </html>
